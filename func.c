@@ -7,6 +7,11 @@ void push(int n)
 	newnode->n = n;
 	newnode->next = NULL;
 
+	if (newnode == NULL)
+	{
+		fprintf(stderr, "Error: malloc failed");
+		exit(EXIT_FAILURE);
+	}
 	while (cur != NULL)
 	{
 		if (cur->next == NULL)

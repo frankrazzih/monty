@@ -1,6 +1,4 @@
 #include "monty.h"
-void pall(void);
-void push(int n);
 stack_t *head = NULL;
 int main(int argc, char *argv[])
 {
@@ -8,9 +6,11 @@ int main(int argc, char *argv[])
 	int n;
 	int line_count = 0;
 	char *buff = malloc(sizeof(char *) * 1024);
-	char *opcode;
+	char *opcode, *temp;
 	FILE *file = fopen(argv[1], "r");
 	char *delim = " \n";
+	char *pal = "pall";
+	char *psh = "push";
 
 	linked_l->next = NULL;
 	linked_l->prev = NULL;
@@ -25,6 +25,7 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Error: Can't open file argv[1]\n");
 		exit(EXIT_FAILURE);
 	}
+	/*read line from file*/
 	while (fgets(buff, sizeof(buff), file) != NULL)
 	{
 		line_count++;
@@ -34,36 +35,43 @@ int main(int argc, char *argv[])
 		{
 			continue;
 		}
-		else if (strcmp(opcode, "pall$") == 0)
+		printf("%s\n", opcode);
+		if (strcmp(opcode, pal) == 0)
 		{
 			/*call the printing function*/
 			pall();
 			continue;
 		}
-		else if (strcmp(opcode, "push") == 0)
+		if (strcmp(opcode, psh) == 0)
 		{
 			/*get 2nd token*/
 			opcode = strtok(NULL, delim);
-			/*look for an int*/
-			/*while (*opcode != '\0')
+			temp = opcode;
+			if (opcode != NULL)
 			{
-				if (!isdigit(*opcode))
-				{
-					break;
-					fprintf(stderr, "L%d: usage: push integer\n", line_count);
-					exit(EXIT_FAILURE);
+				printf("%s\n", opcode);
+				/*look for an int*/
+				while (*temp != '\0')
+					{
+					if (!isdigit(*opcode))
+					{
+						fprintf(stderr, "L%d: usage: push integer\n", line_count);
+						exit(EXIT_FAILURE);
+					}
+					temp++;
 				}
-				opcode++;
-			}*/
-			/*convert to int*/
-			n = atoi(opcode);
-			if (n == 0)
-			{
+				/*convert to int*/
+				n = atoi(opcode);
+				printf("%d\n", n);
+				/*2nd token confirmed an int so call pushing function*/
+				push(n);
 				continue;
 			}
-			/*2nd token confirmed an int so call pushing function*/
-			push(n);
-			continue;
+			else
+			{
+				fprintf(stderr, "L%d: usage: push integer\n", line_count);
+				exit(EXIT_FAILURE);
+			}
 		}
 		else
 		{
