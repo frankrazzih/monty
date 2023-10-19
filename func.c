@@ -12,27 +12,34 @@ void push(int n)
 		fprintf(stderr, "Error: malloc failed");
 		exit(EXIT_FAILURE);
 	}
-	while (cur != NULL)
+	if (cur == NULL)
 	{
-		if (cur->next == NULL)
+		head = newnode;
+	}
+	else
+	{
+		while (cur->next != NULL)
 		{
-			cur->next = newnode;
-			newnode->prev = cur;
-			break;
+			cur = cur->next;
 		}
-		cur = cur->next;
+		cur->next = newnode;
+		newnode->prev = cur;
 	}
 }
 void pall(void)
 {
 	stack_t *cur = head;
+	if (cur == NULL)
+	{
+		return;
+	}
 	/*loop to the last node*/
-	while (cur != NULL)
+	while (cur->next != NULL)
 	{
 		cur = cur->next;
 	}
 	/*loop backwards*/
-	while (cur->prev != NULL)
+	while (cur != NULL)
 	{
 		printf("%d\n", cur->n);
 		cur = cur->prev;			

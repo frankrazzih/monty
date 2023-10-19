@@ -35,7 +35,6 @@ int main(int argc, char *argv[])
 		{
 			continue;
 		}
-		printf("%s\n", opcode);
 		if (strcmp(opcode, pal) == 0)
 		{
 			/*call the printing function*/
@@ -49,7 +48,6 @@ int main(int argc, char *argv[])
 			temp = opcode;
 			if (opcode != NULL)
 			{
-				printf("%s\n", opcode);
 				/*look for an int*/
 				while (*temp != '\0')
 					{
@@ -62,7 +60,6 @@ int main(int argc, char *argv[])
 				}
 				/*convert to int*/
 				n = atoi(opcode);
-				printf("%d\n", n);
 				/*2nd token confirmed an int so call pushing function*/
 				push(n);
 				continue;
