@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
 	char *buff = malloc(sizeof(char *) * 1024);
 	char *opcode;
 	FILE *file = fopen(argv[1], "r");
+	char *delim = " \n";
 
 	linked_l->next = NULL;
 	linked_l->prev = NULL;
@@ -28,45 +29,50 @@ int main(int argc, char *argv[])
 	{
 		line_count++;
 		/*search for push or pall*/
-		opcode = strtok(buff, " ");
+		opcode = strtok(buff, delim);
 		if (opcode == NULL)
 		{
 			continue;
 		}
-		if (strcmp(opcode, "pall") == 0)
+		else if (strcmp(opcode, "pall$") == 0)
 		{
 			/*call the printing function*/
 			pall();
+			continue;
 		}
-		if (strcmp(opcode, "push") == 0)
+		else if (strcmp(opcode, "push") == 0)
 		{
 			/*get 2nd token*/
-			opcode = strtok(NULL, " ");
+			opcode = strtok(NULL, delim);
 			/*look for an int*/
-			while (*opcode != '\0')
+			/*while (*opcode != '\0')
 			{
-				/*check for a valid int*/
 				if (!isdigit(*opcode))
 				{
+					break;
 					fprintf(stderr, "L%d: usage: push integer\n", line_count);
 					exit(EXIT_FAILURE);
 				}
 				opcode++;
-			}
+			}*/
 			/*convert to int*/
 			n = atoi(opcode);
+			if (n == 0)
+			{
+				continue;
+			}
 			/*2nd token confirmed an int so call pushing function*/
 			push(n);
+			continue;
 		}
 		else
-			/*check if the first token is either push or pall*/
 		{
 			fprintf(stderr, "L%d: unknown instruction %s\n", line_count, opcode);
 			exit(EXIT_FAILURE);
 		}
+		free(buff);
 	}
 	fclose(file);
-	free(buff);
 	free(linked_l);
 	return (0);
 }
