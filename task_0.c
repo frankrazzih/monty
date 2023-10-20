@@ -35,6 +35,11 @@ int main(int argc, char *argv[])
 		{
 			continue;
 		}
+		if (strcmp(opcode, "pint") == 0)
+		{
+			pint();
+			continue;
+		}
 		if (strcmp(opcode, pal) == 0)
 		{
 			/*call the printing function*/

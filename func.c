@@ -45,3 +45,16 @@ void pall(void)
 		cur = cur->prev;			
 	}
 }
+void pint(void)
+{
+	stack_t *cur = head;
+	if (cur == NULL)
+	{
+		return;
+	}
+	while (cur->next != NULL)
+	{
+		cur = cur->next;
+	}
+	printf("%d\n", cur->n);
+}

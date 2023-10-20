@@ -35,4 +35,5 @@ typedef struct instruction_s
 extern stack_t *head;
 void pall(void);
 void push(int n);
+void pint(void);
 #endif
