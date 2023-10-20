@@ -35,6 +35,10 @@ int main(int argc, char *argv[])
 		{
 			continue;
 		}
+		if (strcmp(opcode, "nop") == 0)
+		{
+			continue;
+		}
 		if (strcmp(opcode, "pint") == 0)
 		{
 			pint();
